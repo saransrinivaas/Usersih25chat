@@ -13,7 +13,7 @@ class HealthChatbotApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
+      theme: AppTheme.lightThemeData, // Light theme for hackathon
       home: const MainPage(),
     );
   }

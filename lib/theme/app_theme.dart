@@ -1,52 +1,52 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Enhanced Color palette with modern gradients
-  static const Color primaryColor = Color(0xFF6366F1); // Indigo-500
-  static const Color primaryLight = Color(0xFF818CF8); // Indigo-400
-  static const Color primaryDark = Color(0xFF4F46E5); // Indigo-600
-  static const Color secondaryColor = Color(0xFFEC4899); // Pink-500
-  static const Color secondaryLight = Color(0xFFF472B6); // Pink-400
-  static const Color secondaryDark = Color(0xFFDB2777); // Pink-600
-  static const Color backgroundColor = Color(0xFF0F0F23); // Darker background
-  static const Color surfaceColor = Color(0xFF1A1A2E); // Slightly lighter surface
-  static const Color cardColor = Color(0xFF2A2A3E);
-  static const Color cardLight = Color(0xFF3A3A4E);
-  static const Color textPrimary = Color(0xFFFFFFFF);
-  static const Color textSecondary = Color(0xFFB0B0B0);
-  static const Color textTertiary = Color(0xFF8B8B8B);
-  static const Color accentColor = Color(0xFF10B981); // Emerald-500
-  static const Color accentLight = Color(0xFF34D399); // Emerald-400
-  static const Color errorColor = Color(0xFFEF4444); // Red-500
-  static const Color successColor = Color(0xFF10B981); // Emerald-500
-  static const Color warningColor = Color(0xFFF59E0B); // Amber-500
-  static const Color infoColor = Color(0xFF3B82F6); // Blue-500
+  // Elegant Dark Blue-Purple Gradient Palette (Zepto-inspired)
+  static const Color primaryDark = Color(0xFF0F0C29); // Deep Navy
+  static const Color primaryColor = Color(0xFF24243e); // Dark Blue
+  static const Color primaryLight = Color(0xFF302B63); // Purple Blue
+  static const Color secondaryColor = Color(0xFF6A4C93); // Lilac Purple
+  static const Color secondaryLight = Color(0xFF8B7CB8); // Light Lilac
+  static const Color accentColor = Color(0xFFB19CD9); // Soft Lilac
+  static const Color accentLight = Color(0xFFD4C5E8); // Very Light Lilac
+  
+  // Background and Surface Colors
+  static const Color backgroundColor = Color(0xFF0A0A0A); // Almost Black
+  static const Color surfaceColor = Color(0xFF1A1A1A); // Dark Surface
+  static const Color cardColor = Color(0xFF2A2A2A); // Dark Card
+  static const Color cardLight = Color(0xFF3A3A3A); // Lighter Card
+  
+  // Text Colors
+  static const Color textPrimary = Color(0xFFFFFFFF); // White Text
+  static const Color textSecondary = Color(0xFFB0B0B0); // Light Gray
+  static const Color textTertiary = Color(0xFF808080); // Medium Gray
+  static const Color textMuted = Color(0xFF606060); // Dark Gray
+  
+  // Status Colors
+  static const Color errorColor = Color(0xFFFF6B6B); // Soft Red
+  static const Color successColor = Color(0xFF4ECDC4); // Teal
+  static const Color warningColor = Color(0xFFFFE66D); // Soft Yellow
+  static const Color infoColor = Color(0xFF74B9FF); // Soft Blue
 
-  // Enhanced Gradients with more sophisticated color combinations
+  // Elegant Gradients - Seamless and Modern
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [primaryColor, primaryLight, secondaryColor],
+    colors: [primaryDark, primaryColor, primaryLight],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     stops: [0.0, 0.5, 1.0],
   );
 
-  static const LinearGradient primaryGradientVertical = LinearGradient(
-    colors: [primaryColor, primaryDark],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-  );
-
-  static const LinearGradient secondaryGradient = LinearGradient(
-    colors: [secondaryColor, secondaryLight],
+  // Light Theme Gradient
+  static const LinearGradient lightPrimaryGradient = LinearGradient(
+    colors: [Color(0xFF667eea), Color(0xFF764ba2)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const LinearGradient backgroundGradient = LinearGradient(
-    colors: [Color(0xFF0F0F23), Color(0xFF1A1A2E), Color(0xFF16213E)],
+    colors: [backgroundColor, surfaceColor],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    stops: [0.0, 0.5, 1.0],
   );
 
   static const LinearGradient cardGradient = LinearGradient(
@@ -55,31 +55,16 @@ class AppTheme {
     end: Alignment.bottomRight,
   );
 
-  static const LinearGradient glassGradient = LinearGradient(
-    colors: [
-      Color(0x40FFFFFF),
-      Color(0x20FFFFFF),
-    ],
+  static const LinearGradient accentGradient = LinearGradient(
+    colors: [secondaryColor, accentColor],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
-  static const LinearGradient successGradient = LinearGradient(
-    colors: [successColor, accentLight],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
-
-  static const LinearGradient warningGradient = LinearGradient(
-    colors: [warningColor, Color(0xFFFBBF24)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
-
-  static const LinearGradient errorGradient = LinearGradient(
-    colors: [errorColor, Color(0xFFF87171)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+  static const LinearGradient lilacGradient = LinearGradient(
+    colors: [accentColor, accentLight],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
   );
 
   // Enhanced Typography with better hierarchy and spacing
@@ -223,61 +208,33 @@ class AppTheme {
   static const double spacingXXL = 24.0;
   static const double spacingXXXL = 32.0;
 
-  // Glassmorphism effects
-  static BoxDecoration get glassmorphismCard => BoxDecoration(
-    gradient: glassGradient,
-    borderRadius: BorderRadius.circular(borderRadiusLarge),
-    border: Border.all(
-      color: Colors.white.withValues(alpha: 0.2),
-      width: 1,
-    ),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withValues(alpha: 0.1),
-        blurRadius: 20,
-        offset: const Offset(0, 8),
-      ),
-    ],
-  );
-
-  static BoxDecoration get glassmorphismButton => BoxDecoration(
-    gradient: glassGradient,
-    borderRadius: BorderRadius.circular(borderRadiusMedium),
-    border: Border.all(
-      color: Colors.white.withValues(alpha: 0.3),
-      width: 1,
-    ),
-  );
-
-  // Enhanced shadows
+  // Zepto-style shadows - subtle and clean
   static List<BoxShadow> get cardShadow => [
     BoxShadow(
-      color: Colors.black.withValues(alpha: 0.1),
-      blurRadius: 10,
-      offset: const Offset(0, 4),
-    ),
-    BoxShadow(
       color: Colors.black.withValues(alpha: 0.05),
-      blurRadius: 20,
-      offset: const Offset(0, 8),
+      blurRadius: 4,
+      offset: const Offset(0, 2),
     ),
   ];
 
   static List<BoxShadow> get elevatedShadow => [
     BoxShadow(
-      color: Colors.black.withValues(alpha: 0.15),
-      blurRadius: 15,
-      offset: const Offset(0, 6),
-    ),
-    BoxShadow(
-      color: Colors.black.withValues(alpha: 0.1),
-      blurRadius: 30,
-      offset: const Offset(0, 12),
+      color: Colors.black.withValues(alpha: 0.08),
+      blurRadius: 8,
+      offset: const Offset(0, 4),
     ),
   ];
 
-  // App theme
-  static ThemeData get darkTheme {
+  // Light Theme Colors - Hackathon Friendly
+  static const Color lightBackgroundColor = Color(0xFFF5F7FA);
+  static const Color lightSurfaceColor = Color(0xFFFFFFFF);
+  static const Color lightCardColor = Color(0xFFFFFFFF);
+  static const Color lightTextPrimary = Color(0xFF2C3E50);
+  static const Color lightTextSecondary = Color(0xFF7F8C8D);
+  static const Color lightTextTertiary = Color(0xFFBDC3C7);
+
+  // App theme - Elegant Dark Theme
+  static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
@@ -287,13 +244,14 @@ class AppTheme {
         primary: primaryColor,
         secondary: secondaryColor,
         surface: surfaceColor,
-        onPrimary: textPrimary,
-        onSecondary: textPrimary,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
         onSurface: textPrimary,
         error: errorColor,
+        background: backgroundColor,
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: primaryColor,
+        backgroundColor: Colors.transparent,
         foregroundColor: textPrimary,
         elevation: 0,
         centerTitle: true,
@@ -305,8 +263,8 @@ class AppTheme {
       ),
       cardTheme: CardThemeData(
         color: cardColor,
-        elevation: elevationLarge,
-        shadowColor: Colors.black.withValues(alpha: 0.2),
+        elevation: 0,
+        shadowColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadiusLarge),
         ),
@@ -317,10 +275,10 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryColor,
+          backgroundColor: Colors.transparent,
           foregroundColor: textPrimary,
-          elevation: elevationMedium,
-          shadowColor: primaryColor.withValues(alpha: 0.3),
+          elevation: 0,
+          shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadiusMedium),
           ),
@@ -333,7 +291,7 @@ class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: primaryColor,
+          foregroundColor: accentColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadiusSmall),
           ),
@@ -349,18 +307,21 @@ class AppTheme {
         fillColor: cardColor,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadiusMedium),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(
+            color: textMuted,
+            width: 1,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadiusMedium),
           borderSide: BorderSide(
-            color: Colors.grey.withValues(alpha: 0.3),
+            color: textMuted,
             width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadiusMedium),
-          borderSide: const BorderSide(color: primaryColor, width: 2),
+          borderSide: const BorderSide(color: accentColor, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadiusMedium),
@@ -378,11 +339,128 @@ class AppTheme {
         labelStyle: bodyMedium.copyWith(color: textSecondary),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: surfaceColor,
-        selectedItemColor: primaryColor,
-        unselectedItemColor: textSecondary,
+        backgroundColor: Colors.transparent,
+        selectedItemColor: accentColor,
+        unselectedItemColor: textTertiary,
         type: BottomNavigationBarType.fixed,
-        elevation: elevationLarge,
+        elevation: 0,
+        selectedLabelStyle: labelSmall,
+        unselectedLabelStyle: labelSmall,
+      ),
+    );
+  }
+
+  // App theme - Elegant Light Theme
+  static ThemeData get lightThemeData {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: lightBackgroundColor,
+      primaryColor: primaryColor,
+      colorScheme: const ColorScheme.light(
+        primary: primaryColor,
+        secondary: secondaryColor,
+        surface: lightSurfaceColor,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
+        onSurface: lightTextPrimary,
+        error: errorColor,
+        background: lightBackgroundColor,
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        foregroundColor: lightTextPrimary,
+        elevation: 0,
+        centerTitle: true,
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: lightTextPrimary,
+        ),
+      ),
+      cardTheme: CardThemeData(
+        color: lightCardColor,
+        elevation: 0,
+        shadowColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadiusLarge),
+        ),
+        margin: const EdgeInsets.symmetric(
+          horizontal: spacingL,
+          vertical: spacingS,
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: lightTextPrimary,
+          elevation: 0,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadiusMedium),
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: spacingXXL,
+            vertical: spacingM,
+          ),
+          textStyle: labelLarge,
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: accentColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadiusSmall),
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: spacingL,
+            vertical: spacingM,
+          ),
+          textStyle: labelMedium,
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: lightCardColor,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadiusMedium),
+          borderSide: BorderSide(
+            color: lightTextTertiary,
+            width: 1,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadiusMedium),
+          borderSide: BorderSide(
+            color: lightTextTertiary,
+            width: 1,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadiusMedium),
+          borderSide: const BorderSide(color: accentColor, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadiusMedium),
+          borderSide: const BorderSide(color: errorColor, width: 1),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadiusMedium),
+          borderSide: const BorderSide(color: errorColor, width: 2),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: spacingL,
+          vertical: spacingM,
+        ),
+        hintStyle: bodyMedium.copyWith(color: lightTextTertiary),
+        labelStyle: bodyMedium.copyWith(color: lightTextSecondary),
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Colors.transparent,
+        selectedItemColor: accentColor,
+        unselectedItemColor: lightTextTertiary,
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
         selectedLabelStyle: labelSmall,
         unselectedLabelStyle: labelSmall,
       ),

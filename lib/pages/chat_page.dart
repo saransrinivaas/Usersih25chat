@@ -31,96 +31,10 @@ class _ChatPageState extends State<ChatPage> {
       ),
       child: Column(
         children: [
-          // Enhanced Header with glassmorphism
-          Container(
-            padding: const EdgeInsets.all(AppTheme.spacingXL),
-            decoration: BoxDecoration(
-              gradient: AppTheme.primaryGradient,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(AppTheme.borderRadiusXXLarge),
-                bottomRight: Radius.circular(AppTheme.borderRadiusXXLarge),
-              ),
-              boxShadow: AppTheme.elevatedShadow,
-            ),
-            child: Row(
-              children: [
-                // Enhanced AI Avatar with animation
-                TweenAnimationBuilder<double>(
-                  duration: const Duration(milliseconds: 1000),
-                  tween: Tween(begin: 0.0, end: 1.0),
-                  builder: (context, value, child) {
-                    return Transform.scale(
-                      scale: 0.8 + (0.2 * value),
-                      child: Container(
-                        padding: const EdgeInsets.all(AppTheme.spacingM),
-                        decoration: BoxDecoration(
-                          gradient: AppTheme.glassGradient,
-                          borderRadius: BorderRadius.circular(AppTheme.borderRadiusMedium),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.3),
-                            width: 1,
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.psychology,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(width: AppTheme.spacingL),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Health Assistant',
-                        style: AppTheme.titleLarge.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(height: AppTheme.spacingXS),
-                      Text(
-                        'Always here to help',
-                        style: AppTheme.bodyMedium.copyWith(
-                          color: Colors.white.withValues(alpha: 0.9),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Enhanced status indicator
-                Container(
-                  padding: const EdgeInsets.all(AppTheme.spacingS),
-                  decoration: BoxDecoration(
-                    gradient: AppTheme.successGradient,
-                    borderRadius: BorderRadius.circular(AppTheme.borderRadiusSmall),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppTheme.successColor.withValues(alpha: 0.3),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.circle,
-                    color: Colors.white,
-                    size: 12,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          
           // Messages
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               itemCount: _messages.length,
               itemBuilder: (context, index) {
                 return _buildMessageBubble(_messages[index]);
@@ -128,110 +42,62 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
           
-          // Enhanced Input area with glassmorphism
+          // Minimal Input area
           Container(
-            padding: const EdgeInsets.all(AppTheme.spacingL),
+            margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             decoration: BoxDecoration(
-              gradient: AppTheme.glassGradient,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(AppTheme.borderRadiusXXLarge),
-                topRight: Radius.circular(AppTheme.borderRadiusXXLarge),
-              ),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.1),
-                width: 1,
-              ),
-              boxShadow: AppTheme.elevatedShadow,
+              gradient: AppTheme.cardGradient,
+              borderRadius: BorderRadius.circular(25),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.2),
+                  blurRadius: 15,
+                  offset: const Offset(0, 5),
+                ),
+              ],
             ),
             child: Row(
               children: [
                 Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppTheme.cardColor.withValues(alpha: 0.8),
-                      borderRadius: BorderRadius.circular(AppTheme.borderRadiusLarge),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.1),
-                        width: 1,
+                  child: TextField(
+                    controller: _messageController,
+                    decoration: InputDecoration(
+                      hintText: 'Type a message...',
+                      hintStyle: TextStyle(
+                        color: AppTheme.textTertiary,
+                        fontSize: 15,
+                      ),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
                       ),
                     ),
-                    child: TextField(
-                      controller: _messageController,
-                      decoration: InputDecoration(
-                        hintText: 'Type your message...',
-                        hintStyle: AppTheme.bodyLarge.copyWith(
-                          color: AppTheme.textTertiary,
-                        ),
-                        prefixIcon: IconButton(
-                          icon: const Icon(
-                            Icons.emoji_emotions_outlined,
-                            color: AppTheme.textSecondary,
-                          ),
-                          onPressed: () {
-                            // Handle emoji picker
-                          },
-                        ),
-                        suffixIcon: IconButton(
-                          icon: const Icon(
-                            Icons.attach_file,
-                            color: AppTheme.textSecondary,
-                          ),
-                          onPressed: () {
-                            // Handle attachment
-                          },
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: AppTheme.spacingL,
-                          vertical: AppTheme.spacingM,
-                        ),
-                      ),
-                      style: AppTheme.bodyLarge.copyWith(
-                        color: AppTheme.textPrimary,
-                      ),
-                      maxLines: null,
-                      textCapitalization: TextCapitalization.sentences,
+                    style: TextStyle(
+                      color: AppTheme.textPrimary,
+                      fontSize: 15,
                     ),
+                    maxLines: null,
+                    textCapitalization: TextCapitalization.sentences,
                   ),
                 ),
-                const SizedBox(width: AppTheme.spacingM),
-                // Enhanced send button with animation
-                TweenAnimationBuilder<double>(
-                  duration: const Duration(milliseconds: 200),
-                  tween: Tween(begin: 1.0, end: 1.0),
-                  builder: (context, value, child) {
-                    return Transform.scale(
-                      scale: value,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: AppTheme.primaryGradient,
-                          borderRadius: BorderRadius.circular(AppTheme.borderRadiusLarge),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppTheme.primaryColor.withValues(alpha: 0.3),
-                              blurRadius: 12,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            onTap: _sendMessage,
-                            borderRadius: BorderRadius.circular(AppTheme.borderRadiusLarge),
-                            child: const Padding(
-                              padding: EdgeInsets.all(AppTheme.spacingM),
-                              child: Icon(
-                                Icons.send_rounded,
-                                color: Colors.white,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
+                const SizedBox(width: 8),
+                GestureDetector(
+                  onTap: _sendMessage,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      gradient: AppTheme.lilacGradient,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.send_rounded,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -242,108 +108,73 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _buildMessageBubble(ChatMessage message) {
-    return TweenAnimationBuilder<double>(
-      duration: const Duration(milliseconds: 300),
-      tween: Tween(begin: 0.0, end: 1.0),
-      builder: (context, value, child) {
-        return Transform.translate(
-          offset: Offset(0, 20 * (1 - value)),
-          child: Opacity(
-            opacity: value,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: AppTheme.spacingL),
-              child: Row(
-                mainAxisAlignment: message.isUser 
-                    ? MainAxisAlignment.end 
-                    : MainAxisAlignment.start,
-                children: [
-                  if (!message.isUser) ...[
-                    Container(
-                      padding: const EdgeInsets.all(AppTheme.spacingS),
-                      decoration: BoxDecoration(
-                        gradient: AppTheme.primaryGradient,
-                        borderRadius: BorderRadius.circular(AppTheme.borderRadiusMedium),
-                        boxShadow: AppTheme.cardShadow,
-                      ),
-                      child: const Icon(
-                        Icons.psychology,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                    const SizedBox(width: AppTheme.spacingS),
-                  ],
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppTheme.spacingL,
-                        vertical: AppTheme.spacingM,
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: message.isUser 
-                            ? AppTheme.primaryGradient
-                            : AppTheme.cardGradient,
-                        borderRadius: BorderRadius.only(
-                          topLeft: const Radius.circular(AppTheme.borderRadiusLarge),
-                          topRight: const Radius.circular(AppTheme.borderRadiusLarge),
-                          bottomLeft: message.isUser 
-                              ? const Radius.circular(AppTheme.borderRadiusLarge) 
-                              : const Radius.circular(AppTheme.borderRadiusSmall),
-                          bottomRight: message.isUser 
-                              ? const Radius.circular(AppTheme.borderRadiusSmall) 
-                              : const Radius.circular(AppTheme.borderRadiusLarge),
-                        ),
-                        boxShadow: AppTheme.cardShadow,
-                        border: message.isUser 
-                            ? null
-                            : Border.all(
-                                color: Colors.white.withValues(alpha: 0.1),
-                                width: 1,
-                              ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            message.text,
-                            style: AppTheme.bodyLarge.copyWith(
-                              color: Colors.white,
-                              height: 1.4,
-                            ),
-                          ),
-                          const SizedBox(height: AppTheme.spacingXS),
-                          Text(
-                            _formatTime(message.timestamp),
-                            style: AppTheme.labelSmall.copyWith(
-                              color: Colors.white.withValues(alpha: 0.7),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        mainAxisAlignment: message.isUser 
+            ? MainAxisAlignment.end 
+            : MainAxisAlignment.start,
+        children: [
+          if (!message.isUser) ...[
+            Container(
+              width: 32,
+              height: 32,
+              decoration: const BoxDecoration(
+                gradient: AppTheme.lilacGradient,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.psychology,
+                color: Colors.white,
+                size: 18,
+              ),
+            ),
+            const SizedBox(width: 12),
+          ],
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                gradient: message.isUser 
+                    ? AppTheme.accentGradient
+                    : AppTheme.cardGradient,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
                   ),
-                  if (message.isUser) ...[
-                    const SizedBox(width: AppTheme.spacingS),
-                    Container(
-                      padding: const EdgeInsets.all(AppTheme.spacingS),
-                      decoration: BoxDecoration(
-                        gradient: AppTheme.successGradient,
-                        borderRadius: BorderRadius.circular(AppTheme.borderRadiusMedium),
-                        boxShadow: AppTheme.cardShadow,
-                      ),
-                      child: const Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ],
                 ],
+              ),
+              child: Text(
+                message.text,
+                style: TextStyle(
+                  color: message.isUser ? Colors.white : AppTheme.textPrimary,
+                  fontSize: 15,
+                  height: 1.4,
+                ),
               ),
             ),
           ),
-        );
-      },
+          if (message.isUser) ...[
+            const SizedBox(width: 12),
+            Container(
+              width: 32,
+              height: 32,
+              decoration: const BoxDecoration(
+                gradient: AppTheme.accentGradient,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.person,
+                color: Colors.white,
+                size: 18,
+              ),
+            ),
+          ],
+        ],
+      ),
     );
   }
 
@@ -371,20 +202,6 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
-  String _formatTime(DateTime timestamp) {
-    final now = DateTime.now();
-    final difference = now.difference(timestamp);
-    
-    if (difference.inMinutes < 1) {
-      return 'Just now';
-    } else if (difference.inHours < 1) {
-      return '${difference.inMinutes}m ago';
-    } else if (difference.inDays < 1) {
-      return '${difference.inHours}h ago';
-    } else {
-      return '${timestamp.day}/${timestamp.month}';
-    }
-  }
 }
 
 class ChatMessage {

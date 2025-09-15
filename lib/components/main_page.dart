@@ -17,6 +17,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   int _currentIndex = 0;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  String _currentLanguage = 'EN';
 
   final List<Widget> _pages = const [
     ChatPage(),
@@ -25,31 +27,18 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     ProfilePage(),
   ];
 
-  final List<BottomNavItem> _navItems = [
-    BottomNavItem(
-      icon: Icons.chat,
-      activeIcon: Icons.chat,
-      label: 'Chat',
-      color: AppTheme.primaryColor,
-    ),
-    BottomNavItem(
-      icon: Icons.article_outlined,
-      activeIcon: Icons.article,
-      label: 'News',
-      color: AppTheme.secondaryColor,
-    ),
-    BottomNavItem(
-      icon: Icons.videogame_asset_outlined,
-      activeIcon: Icons.videogame_asset,
-      label: 'Games',
-      color: AppTheme.accentColor,
-    ),
-    BottomNavItem(
-      icon: Icons.person_outline,
-      activeIcon: Icons.person,
-      label: 'Profile',
-      color: AppTheme.successColor,
-    ),
+  final List<NavItem> _navItems = [
+    NavItem(icon: Icons.chat, label: 'Chat'),
+    NavItem(icon: Icons.article, label: 'News'),
+    NavItem(icon: Icons.games, label: 'Games'),
+    NavItem(icon: Icons.person, label: 'Profile'),
+  ];
+
+  final List<Map<String, String>> _languages = [
+    {'code': 'EN', 'name': 'English'},
+    {'code': 'HI', 'name': 'हिन्दी'},
+    {'code': 'TA', 'name': 'தமிழ்'},
+    {'code': 'OR', 'name': 'ଓଡ଼ିଆ'},
   ];
 
   @override
@@ -85,185 +74,251 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const AppSidebar(),
-      appBar: _buildAppBar(),
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: _pages[_currentIndex],
+    return Theme(
+      data: AppTheme.lightThemeData,
+      child: Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: AppTheme.lightBackgroundColor,
+        drawer: const AppSidebar(),
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: AppTheme.lightPrimaryGradient,
+          ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // Minimal Header
+              _buildHeader(),
+              // Main Content
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: AppTheme.lightBackgroundColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                    child: FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: _pages[_currentIndex],
+                    ),
+                  ),
+                ),
+              ),
+              // Floating Navigation
+              _buildFloatingNavigation(),
+            ],
+          ),
+        ),
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
+      ),
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Row(
+  Widget _buildHeader() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+      child: Row(
         children: [
+          // Menu Button
+          GestureDetector(
+            onTap: () {
+              _scaffoldKey.currentState?.openDrawer();
+            },
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(
+                Icons.menu,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+          ),
+          const SizedBox(width: 16),
+          // App Logo
           Container(
-            padding: const EdgeInsets.all(8),
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(8),
+              gradient: AppTheme.lilacGradient,
+              borderRadius: BorderRadius.circular(12),
             ),
             child: const Icon(
               Icons.health_and_safety,
               color: Colors.white,
-              size: 20,
+              size: 24,
             ),
           ),
-          const SizedBox(width: 12),
-          Text(
-            _navItems[_currentIndex].label,
-            style: AppTheme.headingSmall.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
+          const SizedBox(width: 16),
+          // Title
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _navItems[_currentIndex].label,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Health Assistant',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white.withValues(alpha: 0.7),
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Language Switcher
+          PopupMenuButton<String>(
+            onSelected: (String languageCode) {
+              setState(() {
+                _currentLanguage = languageCode;
+              });
+            },
+            itemBuilder: (BuildContext context) {
+              return _languages.map((language) {
+                return PopupMenuItem<String>(
+                  value: language['code']!,
+                  child: Row(
+                    children: [
+                      Text(
+                        language['name']!,
+                        style: TextStyle(
+                          color: _currentLanguage == language['code'] 
+                              ? AppTheme.accentColor 
+                              : AppTheme.textPrimary,
+                          fontWeight: _currentLanguage == language['code'] 
+                              ? FontWeight.w600 
+                              : FontWeight.w400,
+                        ),
+                      ),
+                      if (_currentLanguage == language['code']) ...[
+                        const Spacer(),
+                        Icon(
+                          Icons.check,
+                          color: AppTheme.accentColor,
+                          size: 16,
+                        ),
+                      ],
+                    ],
+                  ),
+                );
+              }).toList();
+            },
+            child: Container(
+              width: 50,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    _currentLanguage,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white,
+                    size: 16,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
       ),
-      backgroundColor: _navItems[_currentIndex].color,
-      elevation: 0,
-      centerTitle: false,
-      actions: [
-        Container(
-          margin: const EdgeInsets.only(right: 16),
-          child: Stack(
-            children: [
-              IconButton(
-                onPressed: () {
-                  // Handle notifications
-                },
-                icon: const Icon(
-                  Icons.notifications_outlined,
-                  color: Colors.white,
-                ),
-              ),
-              Positioned(
-                right: 8,
-                top: 8,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: AppTheme.warningColor,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 
-  Widget _buildBottomNavigationBar() {
+  Widget _buildFloatingNavigation() {
     return Container(
+      margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+      height: 70,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppTheme.surfaceColor,
-            AppTheme.surfaceColor.withValues(alpha: 0.95),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
+        gradient: AppTheme.cardGradient,
+        borderRadius: BorderRadius.circular(25),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: const Offset(0, -2),
+            color: Colors.black.withValues(alpha: 0.4),
+            blurRadius: 30,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: _navItems.asMap().entries.map((entry) {
-              final index = entry.key;
-              final item = entry.value;
-              final isSelected = index == _currentIndex;
-              
-              return Expanded(
-                child: GestureDetector(
-                  onTap: () => _onTabTapped(index),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    decoration: BoxDecoration(
-                      gradient: isSelected
-                          ? LinearGradient(
-                              colors: [
-                                item.color.withValues(alpha: 0.2),
-                                item.color.withValues(alpha: 0.1),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            )
-                          : null,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? item.color.withValues(alpha: 0.2)
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Icon(
-                            isSelected ? item.activeIcon : item.icon,
-                            color: isSelected
-                                ? item.color
-                                : AppTheme.textSecondary,
-                            size: 24,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        AnimatedDefaultTextStyle(
-                          duration: const Duration(milliseconds: 200),
-                          style: AppTheme.caption.copyWith(
-                            color: isSelected
-                                ? item.color
-                                : AppTheme.textSecondary,
-                            fontWeight: isSelected
-                                ? FontWeight.w600
-                                : FontWeight.normal,
-                          ),
-                          child: Text(item.label),
-                        ),
-                      ],
-                    ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: _navItems.asMap().entries.map((entry) {
+          final index = entry.key;
+          final item = entry.value;
+          final isSelected = index == _currentIndex;
+          
+          return GestureDetector(
+            onTap: () => _onTabTapped(index),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              width: isSelected ? 60 : 50,
+              height: isSelected ? 60 : 50,
+              decoration: BoxDecoration(
+                gradient: isSelected ? AppTheme.lilacGradient : null,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: isSelected ? [
+                  BoxShadow(
+                    color: AppTheme.accentColor.withValues(alpha: 0.3),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
                   ),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
+                ] : null,
+              ),
+              child: Icon(
+                item.icon,
+                color: isSelected ? Colors.white : AppTheme.textTertiary,
+                size: isSelected ? 24 : 22,
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }
 }
 
-class BottomNavItem {
+class NavItem {
   final IconData icon;
-  final IconData activeIcon;
   final String label;
-  final Color color;
 
-  BottomNavItem({
+  NavItem({
     required this.icon,
-    required this.activeIcon,
     required this.label,
-    required this.color,
   });
 }

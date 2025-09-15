@@ -12,39 +12,35 @@ class _GamesPageState extends State<GamesPage> {
   final List<GameItem> _games = [
     GameItem(
       title: "Health Quiz",
-      description: "Test your knowledge about health and wellness",
+      description: "Test your health knowledge",
       icon: Icons.quiz,
       difficulty: "Easy",
       duration: "5 min",
-      score: 0,
-      isCompleted: false,
+      color: AppTheme.accentColor,
     ),
     GameItem(
       title: "Nutrition Challenge",
-      description: "Learn about healthy eating habits",
+      description: "Learn healthy eating",
       icon: Icons.restaurant,
       difficulty: "Medium",
       duration: "10 min",
-      score: 0,
-      isCompleted: false,
+      color: AppTheme.secondaryColor,
     ),
     GameItem(
       title: "Exercise Memory",
-      description: "Match exercise cards to improve your memory",
+      description: "Match exercise cards",
       icon: Icons.fitness_center,
       difficulty: "Hard",
       duration: "15 min",
-      score: 0,
-      isCompleted: false,
+      color: AppTheme.successColor,
     ),
     GameItem(
       title: "Mental Health Check",
-      description: "Assess your mental well-being",
+      description: "Assess your well-being",
       icon: Icons.psychology,
       difficulty: "Easy",
       duration: "8 min",
-      score: 0,
-      isCompleted: false,
+      color: AppTheme.infoColor,
     ),
   ];
 
@@ -54,411 +50,130 @@ class _GamesPageState extends State<GamesPage> {
       decoration: const BoxDecoration(
         gradient: AppTheme.backgroundGradient,
       ),
-      child: Column(
-        children: [
-          // Header
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-              gradient: AppTheme.primaryGradient,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(24),
-                bottomRight: Radius.circular(24),
-              ),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Icon(
-                    Icons.videogame_asset,
-                    color: Colors.white,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Health Games',
-                        style: AppTheme.headingSmall.copyWith(color: Colors.white),
-                      ),
-                      Text(
-                        'Learn while having fun',
-                        style: AppTheme.bodySmall.copyWith(
-                          color: Colors.white.withValues(alpha: 0.8),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: Colors.white,
-                        size: 16,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '1250',
-                        style: AppTheme.bodySmall.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          
-          // Stats cards
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: _buildStatCard(
-                    'Games Played',
-                    '12',
-                    Icons.play_circle_outline,
-                    AppTheme.primaryColor,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _buildStatCard(
-                    'High Score',
-                    '850',
-                    Icons.trending_up,
-                    AppTheme.successColor,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _buildStatCard(
-                    'Streak',
-                    '5 days',
-                    Icons.local_fire_department,
-                    AppTheme.warningColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          
-          // Games list
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: _games.length,
-              itemBuilder: (context, index) {
-                return _buildGameCard(_games[index], index);
-              },
-            ),
-          ),
-        ],
+      child: ListView.builder(
+        padding: const EdgeInsets.all(20),
+        itemCount: _games.length,
+        itemBuilder: (context, index) {
+          return _buildGameCard(_games[index]);
+        },
       ),
     );
   }
 
-  Widget _buildStatCard(String title, String value, IconData icon, Color color) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.1), color.withValues(alpha: 0.05)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: color.withValues(alpha: 0.3),
-          width: 1,
-        ),
-      ),
-      child: Column(
-        children: [
-          Icon(
-            icon,
-            color: color,
-            size: 24,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: AppTheme.headingMedium.copyWith(
-              color: color,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            title,
-            style: AppTheme.caption.copyWith(
-              color: AppTheme.textSecondary,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGameCard(GameItem game, int index) {
+  Widget _buildGameCard(GameItem game) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         gradient: AppTheme.cardGradient,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withValues(alpha: 0.2),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
           ),
         ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => _playGame(game, index),
-          borderRadius: BorderRadius.circular(16),
+          onTap: () {
+            // Handle game tap
+          },
+          borderRadius: BorderRadius.circular(20),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
               children: [
-                // Game icon
+                // Game Icon
                 Container(
-                  padding: const EdgeInsets.all(16),
+                  width: 60,
+                  height: 60,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        AppTheme.primaryColor.withValues(alpha: 0.2),
-                        AppTheme.secondaryColor.withValues(alpha: 0.2),
-                      ],
+                      colors: [game.color, game.color.withValues(alpha: 0.7)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(16),
                   ),
                   child: Icon(
                     game.icon,
-                    color: AppTheme.primaryColor,
-                    size: 32,
+                    color: Colors.white,
+                    size: 28,
                   ),
                 ),
-                
                 const SizedBox(width: 16),
-                
-                // Game info
+                // Game Info
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         game.title,
-                        style: AppTheme.headingSmall.copyWith(
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
                           color: AppTheme.textPrimary,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         game.description,
-                        style: AppTheme.bodyMedium.copyWith(
+                        style: const TextStyle(
+                          fontSize: 14,
                           color: AppTheme.textSecondary,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 8),
                       Row(
                         children: [
-                          _buildDifficultyChip(game.difficulty),
-                          const SizedBox(width: 8),
-                          _buildDurationChip(game.duration),
-                          const Spacer(),
-                          if (game.isCompleted)
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: AppTheme.successColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                    size: 12,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    'Completed',
-                                    style: AppTheme.caption.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: game.color.withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              game.difficulty,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: game.color,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            game.duration,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: AppTheme.textTertiary,
+                            ),
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                
-                const SizedBox(width: 16),
-                
-                // Play button
+                // Play Button
                 Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: const BoxDecoration(
-                    gradient: AppTheme.primaryGradient,
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    gradient: AppTheme.lilacGradient,
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(
                     Icons.play_arrow,
                     color: Colors.white,
-                    size: 24,
+                    size: 20,
                   ),
                 ),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildDifficultyChip(String difficulty) {
-    Color color;
-    switch (difficulty.toLowerCase()) {
-      case 'easy':
-        color = AppTheme.successColor;
-        break;
-      case 'medium':
-        color = AppTheme.warningColor;
-        break;
-      case 'hard':
-        color = AppTheme.errorColor;
-        break;
-      default:
-        color = AppTheme.textSecondary;
-    }
-    
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withValues(alpha: 0.5)),
-      ),
-      child: Text(
-        difficulty,
-        style: AppTheme.caption.copyWith(
-          color: color,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDurationChip(String duration) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: AppTheme.textSecondary.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.access_time,
-            size: 12,
-            color: AppTheme.textSecondary,
-          ),
-          const SizedBox(width: 4),
-          Text(
-            duration,
-            style: AppTheme.caption.copyWith(
-              color: AppTheme.textSecondary,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _playGame(GameItem game, int index) {
-    // Simulate game completion
-    setState(() {
-      _games[index] = GameItem(
-        title: game.title,
-        description: game.description,
-        icon: game.icon,
-        difficulty: game.difficulty,
-        duration: game.duration,
-        score: game.score + 100,
-        isCompleted: true,
-      );
-    });
-    
-    // Show completion dialog
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: AppTheme.cardColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        title: Text(
-          'Game Completed!',
-          style: AppTheme.headingSmall.copyWith(color: AppTheme.textPrimary),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.celebration,
-              color: AppTheme.successColor,
-              size: 48,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Congratulations! You earned 100 points.',
-              style: AppTheme.bodyMedium.copyWith(color: AppTheme.textSecondary),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              'Continue',
-              style: TextStyle(color: AppTheme.primaryColor),
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -470,8 +185,7 @@ class GameItem {
   final IconData icon;
   final String difficulty;
   final String duration;
-  final int score;
-  final bool isCompleted;
+  final Color color;
 
   GameItem({
     required this.title,
@@ -479,7 +193,6 @@ class GameItem {
     required this.icon,
     required this.difficulty,
     required this.duration,
-    required this.score,
-    required this.isCompleted,
+    required this.color,
   });
 }

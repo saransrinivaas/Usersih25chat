@@ -7,174 +7,101 @@ class AppSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: AppTheme.surfaceColor,
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          // Header
-          Container(
-            height: 200,
-            decoration: const BoxDecoration(
-              gradient: AppTheme.primaryGradient,
+      backgroundColor: AppTheme.backgroundColor,
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: AppTheme.backgroundGradient,
+        ),
+        child: Column(
+          children: [
+            // Elegant Header
+            _buildHeader(),
+            // Menu Items
+            Expanded(
+              child: _buildMenuItems(context),
             ),
-            child: Stack(
-              children: [
-                // Background pattern
-                Positioned(
-                  top: -50,
-                  right: -50,
-                  child: Container(
-                    width: 150,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(75),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: -30,
-                  left: -30,
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                ),
-                
-                // Content
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.2),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Icon(
-                              Icons.health_and_safety,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Health Assistant',
-                                  style: AppTheme.headingSmall.copyWith(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  'Your wellness companion',
-                                  style: AppTheme.bodySmall.copyWith(
-                                    color: Colors.white.withValues(alpha: 0.8),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      height: 200,
+      decoration: const BoxDecoration(
+        gradient: AppTheme.primaryGradient,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
+      ),
+      child: Stack(
+        children: [
+          // Background Pattern
+          Positioned(
+            top: -30,
+            right: -30,
+            child: Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(60),
+              ),
             ),
           ),
-          
-          // Menu items
+          Positioned(
+            bottom: -20,
+            left: -20,
+            child: Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.05),
+                borderRadius: BorderRadius.circular(40),
+              ),
+            ),
+          ),
+          // Content
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(24),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildMenuItem(
-                  context,
-                  'Dashboard',
-                  'Overview of your health',
-                  Icons.dashboard,
-                  () => Navigator.pop(context),
-                ),
-                _buildMenuItem(
-                  context,
-                  'Chat',
-                  'Talk to AI assistant',
-                  Icons.chat,
-                  () => Navigator.pop(context),
-                ),
-                _buildMenuItem(
-                  context,
-                  'News',
-                  'Latest health updates',
-                  Icons.article,
-                  () => Navigator.pop(context),
-                ),
-                _buildMenuItem(
-                  context,
-                  'Games',
-                  'Health quizzes & games',
-                  Icons.videogame_asset,
-                  () => Navigator.pop(context),
-                ),
-                _buildMenuItem(
-                  context,
-                  'Profile',
-                  'Your personal settings',
-                  Icons.person,
-                  () => Navigator.pop(context),
-                ),
-                
                 const SizedBox(height: 20),
-                
-                // Divider
+                // App Logo
                 Container(
-                  height: 1,
+                  width: 60,
+                  height: 60,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.transparent,
-                        AppTheme.textSecondary.withValues(alpha: 0.3),
-                        Colors.transparent,
-                      ],
-                    ),
+                    gradient: AppTheme.lilacGradient,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Icon(
+                    Icons.health_and_safety,
+                    color: Colors.white,
+                    size: 30,
                   ),
                 ),
-                
-                const SizedBox(height: 20),
-                
-                // Additional menu items
-                _buildMenuItem(
-                  context,
-                  'Settings',
-                  'App preferences',
-                  Icons.settings,
-                  () => Navigator.pop(context),
+                const SizedBox(height: 16),
+                // App Info
+                Text(
+                  'Health Assistant',
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
-                _buildMenuItem(
-                  context,
-                  'Help & Support',
-                  'Get assistance',
-                  Icons.help_outline,
-                  () => Navigator.pop(context),
-                ),
-                _buildMenuItem(
-                  context,
-                  'About',
-                  'App information',
-                  Icons.info_outline,
-                  () => Navigator.pop(context),
+                const SizedBox(height: 4),
+                Text(
+                  'Your wellness companion',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white.withValues(alpha: 0.8),
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ],
             ),
@@ -184,64 +111,164 @@ class AppSidebar extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(
-    BuildContext context,
-    String title,
-    String subtitle,
-    IconData icon,
-    VoidCallback onTap,
-  ) {
+  Widget _buildMenuItems(BuildContext context) {
+    final menuItems = [
+      MenuItem(
+        title: 'Dashboard',
+        subtitle: 'Overview of your health',
+        icon: Icons.dashboard,
+        color: AppTheme.accentColor,
+      ),
+      MenuItem(
+        title: 'Chat',
+        subtitle: 'Talk to AI assistant',
+        icon: Icons.chat,
+        color: AppTheme.secondaryColor,
+      ),
+      MenuItem(
+        title: 'News',
+        subtitle: 'Latest health updates',
+        icon: Icons.article,
+        color: AppTheme.infoColor,
+      ),
+      MenuItem(
+        title: 'Games',
+        subtitle: 'Health quizzes & games',
+        icon: Icons.games,
+        color: AppTheme.successColor,
+      ),
+      MenuItem(
+        title: 'Profile',
+        subtitle: 'Your personal settings',
+        icon: Icons.person,
+        color: AppTheme.accentLight,
+      ),
+    ];
+
+    return ListView(
+      padding: const EdgeInsets.all(20),
+      children: [
+        // Main Menu Items
+        ...menuItems.map((item) => _buildMenuItem(context, item)),
+        
+        const SizedBox(height: 20),
+        
+        // Divider
+        Container(
+          height: 1,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.transparent,
+                AppTheme.textTertiary.withValues(alpha: 0.3),
+                Colors.transparent,
+              ],
+            ),
+          ),
+        ),
+        
+        const SizedBox(height: 20),
+        
+        // Additional Menu Items
+        _buildMenuItem(
+          context,
+          MenuItem(
+            title: 'Settings',
+            subtitle: 'App preferences',
+            icon: Icons.settings,
+            color: AppTheme.textSecondary,
+          ),
+        ),
+        _buildMenuItem(
+          context,
+          MenuItem(
+            title: 'Help & Support',
+            subtitle: 'Get assistance',
+            icon: Icons.help_outline,
+            color: AppTheme.textSecondary,
+          ),
+        ),
+        _buildMenuItem(
+          context,
+          MenuItem(
+            title: 'About',
+            subtitle: 'App information',
+            icon: Icons.info_outline,
+            color: AppTheme.textSecondary,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMenuItem(BuildContext context, MenuItem item) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        gradient: LinearGradient(
-          colors: [
-            Colors.transparent,
-            AppTheme.primaryColor.withValues(alpha: 0.05),
-          ],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
+        gradient: AppTheme.cardGradient,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(12),
+          onTap: () {
+            Navigator.pop(context);
+            // Handle navigation
+          },
+          borderRadius: BorderRadius.circular(16),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
               children: [
+                // Icon
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  width: 40,
+                  height: 40,
                   decoration: BoxDecoration(
-                    color: AppTheme.primaryColor.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
+                    gradient: LinearGradient(
+                      colors: [
+                        item.color.withValues(alpha: 0.2),
+                        item.color.withValues(alpha: 0.1),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
-                    icon,
-                    color: AppTheme.primaryColor,
+                    item.icon,
+                    color: item.color,
                     size: 20,
                   ),
                 ),
                 
                 const SizedBox(width: 16),
                 
+                // Text
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
-                        style: AppTheme.bodyLarge.copyWith(
-                          color: AppTheme.textPrimary,
+                        item.title,
+                        style: const TextStyle(
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
+                          color: AppTheme.textPrimary,
                         ),
                       ),
+                      const SizedBox(height: 2),
                       Text(
-                        subtitle,
-                        style: AppTheme.bodySmall.copyWith(
+                        item.subtitle,
+                        style: const TextStyle(
+                          fontSize: 12,
                           color: AppTheme.textSecondary,
                         ),
                       ),
@@ -249,10 +276,11 @@ class AppSidebar extends StatelessWidget {
                   ),
                 ),
                 
+                // Arrow
                 Icon(
                   Icons.chevron_right,
-                  color: AppTheme.textSecondary.withValues(alpha: 0.5),
-                  size: 16,
+                  color: AppTheme.textTertiary,
+                  size: 20,
                 ),
               ],
             ),
@@ -261,4 +289,18 @@ class AppSidebar extends StatelessWidget {
       ),
     );
   }
+}
+
+class MenuItem {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color color;
+
+  MenuItem({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.color,
+  });
 }
