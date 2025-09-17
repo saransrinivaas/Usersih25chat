@@ -86,7 +86,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         drawer: const AppSidebar(),
         body: Container(
           decoration: const BoxDecoration(
-            gradient: AppTheme.lightPrimaryGradient,
+            gradient: AppTheme.primaryGradient,
           ),
         child: SafeArea(
           child: Column(

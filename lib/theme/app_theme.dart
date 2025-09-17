@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Elegant Dark Blue-Purple Gradient Palette (Zepto-inspired)
-  static const Color primaryDark = Color(0xFF0F0C29); // Deep Navy
-  static const Color primaryColor = Color(0xFF24243e); // Dark Blue
-  static const Color primaryLight = Color(0xFF302B63); // Purple Blue
-  static const Color secondaryColor = Color(0xFF6A4C93); // Lilac Purple
-  static const Color secondaryLight = Color(0xFF8B7CB8); // Light Lilac
-  static const Color accentColor = Color(0xFFB19CD9); // Soft Lilac
-  static const Color accentLight = Color(0xFFD4C5E8); // Very Light Lilac
-  
+  // Elegant Light Blue-Lilac Palette
+  static const Color primaryDark = Color.fromARGB(255, 181, 114, 210); // Light Blue
+  static const Color primaryColor = Color(0xFFE3EAFE); // Very Light Blue
+  static const Color primaryLight = Color(0xFFFFFFFF); // White
+  static const Color secondaryColor = Color(0xFFD1C4E9); // Lilac
+  static const Color secondaryLight = Color(0xFFEDE7F6); // Light Lilac
+  static const Color accentColor = Color.fromARGB(255, 155, 112, 171); // Soft Lilac
+  static const Color accentLight = Color(0xFFF3E5F5); // Very Light Lilac
+
   // Background and Surface Colors
-  static const Color backgroundColor = Color(0xFF0A0A0A); // Almost Black
-  static const Color surfaceColor = Color(0xFF1A1A1A); // Dark Surface
-  static const Color cardColor = Color(0xFF2A2A2A); // Dark Card
-  static const Color cardLight = Color(0xFF3A3A3A); // Lighter Card
-  
+  static const Color backgroundColor = Color(0xFFF5F7FA); // Lightest Gray
+  static const Color surfaceColor = Color(0xFFFFFFFF); // White
+  static const Color cardColor = Color(0xFFFFFFFF); // White
+  static const Color cardLight = Color(0xFFF0F0F0); // Very Light Gray
+
   // Text Colors
-  static const Color textPrimary = Color(0xFFFFFFFF); // White Text
-  static const Color textSecondary = Color(0xFFB0B0B0); // Light Gray
-  static const Color textTertiary = Color(0xFF808080); // Medium Gray
-  static const Color textMuted = Color(0xFF606060); // Dark Gray
+  static const Color textPrimary = Color(0xFF2C3E50); // Dark Blue Text
+  static const Color textSecondary = Color(0xFF7F8C8D); // Gray
+  static const Color textTertiary = Color(0xFFBDC3C7); // Light Gray
+  static const Color textMuted = Color(0xFFB0BEC5); // Muted Blue Gray
   
   // Status Colors
   static const Color errorColor = Color(0xFFFF6B6B); // Soft Red
@@ -30,17 +30,10 @@ class AppTheme {
 
   // Elegant Gradients - Seamless and Modern
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [primaryDark, primaryColor, primaryLight],
+    colors: [primaryColor, primaryLight],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    stops: [0.0, 0.5, 1.0],
-  );
-
-  // Light Theme Gradient
-  static const LinearGradient lightPrimaryGradient = LinearGradient(
-    colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+    stops: [0.0, 1.0],
   );
 
   static const LinearGradient backgroundGradient = LinearGradient(
@@ -208,10 +201,10 @@ class AppTheme {
   static const double spacingXXL = 24.0;
   static const double spacingXXXL = 32.0;
 
-  // Zepto-style shadows - subtle and clean
+  // Zepto-style shadows - subtle and clean (light theme)
   static List<BoxShadow> get cardShadow => [
     BoxShadow(
-      color: Colors.black.withValues(alpha: 0.05),
+      color: Colors.grey.withOpacity(0.08),
       blurRadius: 4,
       offset: const Offset(0, 2),
     ),
@@ -219,7 +212,7 @@ class AppTheme {
 
   static List<BoxShadow> get elevatedShadow => [
     BoxShadow(
-      color: Colors.black.withValues(alpha: 0.08),
+      color: Colors.grey.withOpacity(0.12),
       blurRadius: 8,
       offset: const Offset(0, 4),
     ),
@@ -291,7 +284,7 @@ class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: accentColor,
+          foregroundColor: const Color.fromARGB(255, 154, 85, 179),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadiusSmall),
           ),
@@ -340,7 +333,7 @@ class AppTheme {
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Colors.transparent,
-        selectedItemColor: accentColor,
+        selectedItemColor: Color.fromARGB(255, 156, 94, 179),
         unselectedItemColor: textTertiary,
         type: BottomNavigationBarType.fixed,
         elevation: 0,

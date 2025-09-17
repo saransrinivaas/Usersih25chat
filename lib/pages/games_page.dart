@@ -68,7 +68,7 @@ class _GamesPageState extends State<GamesPage> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
+            color: Colors.white.withOpacity(0.2),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
